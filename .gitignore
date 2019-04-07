@@ -1,0 +1,8 @@
+# python
+__pycache__
+
+# virtual environment
+venv
+
+# temp databases
+data.db
