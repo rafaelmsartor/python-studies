@@ -1,6 +1,13 @@
 import sqlite3
+from db import alchmey_db
 
-class UserModel:
+class UserModel(alchmey_db.Model):
+
+    __tablename__ = "users"
+    id = alchmey_db.Column( alchmey_db.Integer, primary_key=True )
+    username = alchmey_db.Column( alchmey_db.String( 80 ) )
+    password = alchmey_db.Column( alchmey_db.String( 80 ) )
+
     def __init__( self, userid, username, password ):
         self.id = userid
         self.username = username

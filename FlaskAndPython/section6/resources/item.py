@@ -24,7 +24,7 @@ class Item(Resource):
         new_item = ItemModel( name, request_data['price'] )
 
         try:
-            new_item.insert()
+            new_item.save_to_db()
         except:
             return { 'message': 'An error ocurred inserting the item.' }, 500
 
@@ -36,27 +36,22 @@ class Item(Resource):
         data = self.parse_request()
 
         item = ItemModel.find_by_name( name )
-        updated_item = ItemModel( name, data['price'] )
-            
-        if not item:
-            try:
-                updated_item.insert()
-            except:
-                return { 'message': 'An error ocurred while inserting the item.' }
-        else:
-            try:
-                updated_item.update()
-            except:
-                return { 'message': 'An error ocurred while updating the item.' }
         
-        return updated_item.json()
+        if not item:
+            item = ItemModel( name, data['price'] )
+        else:
+            item.price= data['price']
+
+        item.save_to_db()
+        
+        return item.json()
 
 
     def delete( self, name ):
         item = ItemModel.find_by_name( name )
 
         if item:
-            item.delete()
+            item.delete_from_db()
         
         return { 'message': 'Item deleted' }
 

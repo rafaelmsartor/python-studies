@@ -9,6 +9,8 @@ from resources.item import Item, ItemsList
 app = Flask( __name__ )
 
 app.secret_key = "MySuperAwesomeSecretKey"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 
 api = Api( app )
 
@@ -21,4 +23,6 @@ api.add_resource( ItemsList, '/items' )
 api.add_resource( UserRegister, '/register')
 
 if __name__ == '__main__':
+    from db import alchmey_db
+    alchmey_db.init_app ( app )
     app.run( port=5000, debug=True )
