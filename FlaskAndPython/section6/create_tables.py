@@ -10,5 +10,8 @@ cursor.execute( create_table )
 create_table = "CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name text, price real)"
 cursor.execute( create_table )
 
+query = 'INSERT INTO users VALUES(NULL, "rafael", "asdf")'
+cursor.execute( query )
+
 connection.commit()
 connection.close()
