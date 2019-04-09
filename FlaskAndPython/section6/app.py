@@ -23,6 +23,6 @@ api.add_resource( ItemsList, '/items' )
 api.add_resource( UserRegister, '/register')
 
 if __name__ == '__main__':
-    from db import alchmey_db
-    alchmey_db.init_app ( app )
+    from db import alchemy_db
+    alchemy_db.init_app ( app )
     app.run( port=5000, debug=True )

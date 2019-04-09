@@ -1,12 +1,12 @@
 import sqlite3
-from db import alchmey_db
+from db import alchemy_db
 
-class ItemModel(alchmey_db.Model):
+class ItemModel(alchemy_db.Model):
 
     __tablename__ = "items"
-    id = alchmey_db.Column( alchmey_db.Integer, primary_key=True )
-    name = alchmey_db.Column( alchmey_db.String( 80 ) )
-    price = alchmey_db.Column( alchmey_db.Float( precision=2 ) )
+    id = alchemy_db.Column( alchemy_db.Integer, primary_key=True )
+    name = alchemy_db.Column( alchemy_db.String( 80 ) )
+    price = alchemy_db.Column( alchemy_db.Float( precision=2 ) )
 
 
     def __init__( self, name, price ) :
@@ -27,8 +27,8 @@ class ItemModel(alchmey_db.Model):
 
 
     def save_to_db( self ):
-        alchmey_db.session.add( self )
-        alchmey_db.session.commit()
+        alchemy_db.session.add( self )
+        alchemy_db.session.commit()
 
 
     def update( self ):
@@ -43,6 +43,6 @@ class ItemModel(alchmey_db.Model):
 
     
     def delete_from_db( self ):
-        db.session.delete( self )
-        db.session.commit()
+        alchemy_db.session.delete( self )
+        alchemy_db.session.commit()
         

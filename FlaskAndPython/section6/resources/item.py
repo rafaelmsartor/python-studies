@@ -77,8 +77,7 @@ class ItemsList( Resource ):
 
         query = "SELECT * FROM items"
         result = cursor.execute( query )
-        connection.close()
-
+       
         items = []
 
         for row in result:
@@ -86,5 +85,7 @@ class ItemsList( Resource ):
                 'name' : row[0],
                 'price': row[1]
             })
+        
+        connection.close()
 
         return { 'items': items }
