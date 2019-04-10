@@ -25,5 +25,6 @@ class UserRegister( Resource ):
             return { 'message': 'That username is already in use' }, 400
 
         user = UserModel( **data )
+        user.save_to_db()
 
         return { 'message': 'User created successfully.' }, 201
