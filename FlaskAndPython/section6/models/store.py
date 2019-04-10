@@ -1,27 +1,23 @@
 import sqlite3
 from db import alchemy_db
 
-class ItemModel(alchemy_db.Model):
+class StoreModel(alchemy_db.Model):
 
-    __tablename__ = "items"
+    __tablename__ = "stores"
     id = alchemy_db.Column( alchemy_db.Integer, primary_key=True )
     name = alchemy_db.Column( alchemy_db.String( 80 ) )
-    price = alchemy_db.Column( alchemy_db.Float( precision=2 ) )
-
-    store_id = alchemy_db.Column( alchemy_db.Integer, alchemy_db.ForeignKey('stores.id') )
-    store = alchemy_db.relationship( 'StoreModel' )
-
-
-    def __init__( self, name, price, store_id ) :
+   
+    items = alchemy_db.relationship( 'ItemModel', lazy='dynamic' )
+   
+    def __init__( self, name ) :
         self.name = name
-        self.price = price
-        self.store_id = store_id
+        
 
 
     def json( self ):
         return { 
             'name': self.name,
-            'price': self.price
+            'items': [item.json for item in self.items.all()]
         }
 
     

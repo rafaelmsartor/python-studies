@@ -20,7 +20,7 @@ class Item(Resource):
 
         request_data = self.parse_request()
 
-        new_item = ItemModel( name, request_data['price'] )
+        new_item = ItemModel( name, request_data['price'], request_data['store_id'] )
 
         try:
             new_item.save_to_db()
@@ -37,9 +37,10 @@ class Item(Resource):
         item = ItemModel.find_by_name( name )
         
         if not item:
-            item = ItemModel( name, data['price'] )
+            item = ItemModel( name, data['price'], data['store_id'] )
         else:
             item.price= data['price']
+            item.store_id = data['store_id']
 
         item.save_to_db()
         
@@ -63,6 +64,12 @@ class Item(Resource):
             type=float,
             required=True,
             help='This argument must not be empty'
+        )
+
+        parser.add_argument( 'store_id',
+            type=int,
+            required=True,
+            help='Every item needs a store id'
         )
 
         return parser.parse_args()
